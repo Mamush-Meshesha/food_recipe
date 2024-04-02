@@ -1,0 +1,1 @@
+CREATE TABLE "public"."images" ("id" serial NOT NULL, "recipe_id" integer NOT NULL, "url" integer NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("recipe_id") REFERENCES "public"."recipe"("id") ON UPDATE restrict ON DELETE restrict);

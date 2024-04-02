@@ -1,0 +1,59 @@
+table:
+  name: blog
+  schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        blog_id: x-hasura-User-Id
+      columns:
+        - blog_id
+        - id
+        - description
+        - detail
+        - step_title
+        - title
+        - url
+        - created_at
+    comment: ""
+select_permissions:
+  - role: adminstrator
+    permission:
+      columns:
+        - blog_id
+        - id
+        - description
+        - detail
+        - step_title
+        - title
+        - url
+        - created_at
+      filter: {}
+    comment: ""
+  - role: anonymous
+    permission:
+      columns:
+        - blog_id
+        - id
+        - description
+        - detail
+        - step_title
+        - title
+        - url
+        - created_at
+      filter: {}
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - blog_id
+        - id
+        - description
+        - detail
+        - step_title
+        - title
+        - url
+        - created_at
+      filter: {}
+    comment: ""

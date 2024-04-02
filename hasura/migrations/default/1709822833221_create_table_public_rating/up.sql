@@ -1,0 +1,1 @@
+CREATE TABLE "public"."rating" ("id" serial NOT NULL, "value" integer NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), "user_id" integer NOT NULL, "recipe_id" integer NOT NULL, PRIMARY KEY ("id") );

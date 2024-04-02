@@ -1,0 +1,162 @@
+table:
+  name: recipe
+  schema: public
+object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+array_relationships:
+  - name: bookmarks
+    using:
+      foreign_key_constraint_on:
+        column: recipe_id
+        table:
+          name: bookmarks
+          schema: public
+  - name: catagories
+    using:
+      foreign_key_constraint_on:
+        column: recipe_id
+        table:
+          name: catagories
+          schema: public
+  - name: comments
+    using:
+      foreign_key_constraint_on:
+        column: comment_id
+        table:
+          name: comments
+          schema: public
+  - name: images
+    using:
+      foreign_key_constraint_on:
+        column: recipe_id
+        table:
+          name: images
+          schema: public
+  - name: ingredients
+    using:
+      foreign_key_constraint_on:
+        column: recipe_id
+        table:
+          name: ingredients
+          schema: public
+  - name: instructions
+    using:
+      foreign_key_constraint_on:
+        column: recipe_id
+        table:
+          name: instructions
+          schema: public
+  - name: likes
+    using:
+      foreign_key_constraint_on:
+        column: recipe_id
+        table:
+          name: likes
+          schema: public
+  - name: ratings
+    using:
+      foreign_key_constraint_on:
+        column: recipe_id
+        table:
+          name: rating
+          schema: public
+computed_fields:
+  - name: avarage_rating
+    definition:
+      function:
+        name: rate_average
+        schema: public
+  - name: is_booked
+    definition:
+      function:
+        name: recipe_boomark
+        schema: public
+      session_argument: hasura_session
+  - name: is_liked
+    definition:
+      function:
+        name: recipe_like
+        schema: public
+      session_argument: hasura_session
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        user_id: x-hasura-User-Id
+      columns:
+        - catagory_id
+        - created_at
+        - description
+        - id
+        - preparetion_time
+        - title
+        - user_id
+    comment: ""
+select_permissions:
+  - role: adminstrator
+    permission:
+      columns:
+        - catagory_id
+        - created_at
+        - description
+        - id
+        - preparetion_time
+        - title
+        - user_id
+      computed_fields:
+        - avarage_rating
+        - is_booked
+        - is_liked
+      filter: {}
+    comment: ""
+  - role: anonymous
+    permission:
+      columns:
+        - created_at
+        - title
+      computed_fields:
+        - avarage_rating
+        - is_booked
+        - is_liked
+      filter: {}
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - catagory_id
+        - created_at
+        - description
+        - id
+        - preparetion_time
+        - title
+        - user_id
+      computed_fields:
+        - avarage_rating
+        - is_booked
+        - is_liked
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - catagory_id
+        - id
+        - preparetion_time
+        - user_id
+        - description
+        - title
+        - created_at
+      filter: {}
+      check: null
+      set:
+        user_id: x-hasura-User-Id
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter: {}
+    comment: ""

@@ -1,0 +1,154 @@
+table:
+  name: users
+  schema: public
+array_relationships:
+  - name: bookmarks
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: bookmarks
+          schema: public
+  - name: checkeds
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: checked
+          schema: public
+  - name: comments
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: comments
+          schema: public
+  - name: likes
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: likes
+          schema: public
+  - name: rating
+    using:
+      manual_configuration:
+        column_mapping:
+          id: user_id
+        insertion_order: null
+        remote_table:
+          name: rating
+          schema: public
+  - name: ratings
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: rating
+          schema: public
+  - name: recipes
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: recipe
+          schema: public
+insert_permissions:
+  - role: adminstrator
+    permission:
+      check: {}
+      columns: []
+    comment: ""
+  - role: user
+    permission:
+      check: {}
+      columns: []
+    comment: ""
+select_permissions:
+  - role: adminstrator
+    permission:
+      columns:
+        - id
+        - email
+        - first_name
+        - last_name
+        - password
+        - url
+        - created_at
+      filter: {}
+    comment: ""
+  - role: anonymous
+    permission:
+      columns:
+        - id
+        - email
+        - first_name
+        - last_name
+        - password
+        - url
+        - created_at
+      filter: {}
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - id
+        - email
+        - first_name
+        - last_name
+        - password
+        - url
+        - created_at
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: adminstrator
+    permission:
+      columns:
+        - id
+        - email
+        - first_name
+        - last_name
+        - password
+        - url
+        - created_at
+      filter: {}
+      check: null
+      set:
+        id: x-hasura-User-Id
+    comment: ""
+  - role: anonymous
+    permission:
+      columns:
+        - id
+        - email
+        - first_name
+        - last_name
+        - password
+        - url
+        - created_at
+      filter: {}
+      check: null
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - id
+        - email
+        - first_name
+        - last_name
+        - password
+        - url
+        - created_at
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null
+      set:
+        id: x-hasura-User-Id
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter: {}
+    comment: ""

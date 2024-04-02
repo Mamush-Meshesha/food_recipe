@@ -1,0 +1,1 @@
+CREATE TABLE "public"."food" ("title" text, "id" serial NOT NULL, "description" text, "catagory" text NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), "url" text NOT NULL, "recipe_id" integer NOT NULL, PRIMARY KEY ("id") );

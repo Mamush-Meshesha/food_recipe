@@ -1,0 +1,1 @@
+CREATE TABLE "public"."recipe" ("id" serial NOT NULL, "title" text NOT NULL, "description" text NOT NULL, "url" text NOT NULL, "ingradient" text NOT NULL, "instraction" text NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), "post_id" integer NOT NULL, PRIMARY KEY ("id") );

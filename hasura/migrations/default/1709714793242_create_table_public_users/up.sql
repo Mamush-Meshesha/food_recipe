@@ -1,0 +1,1 @@
+CREATE TABLE "public"."users" ("id" serial NOT NULL, "first_name" text NOT NULL, "last_name" text NOT NULL, "email" text NOT NULL, "pasword" text NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), PRIMARY KEY ("id") );

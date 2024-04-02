@@ -1,0 +1,54 @@
+actions:
+  - name: login
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:8480/login
+      request_transform:
+        body:
+          action: transform
+          template: |-
+            {
+                "email": {{$body.input.email}},
+                "password": {{$body.input.password}}
+            }
+        template_engine: Kriti
+        version: 2
+    permissions:
+      - role: anonymous
+      - role: adminstrator
+      - role: user
+    comment: login
+  - name: register
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:8480/register
+      request_transform:
+        body:
+          action: transform
+          template: "{\n    \"password\": {{$body.input.password}},\n    \"email\": {{$body.input.email}},\n    \"first_name\": {{$body.input.first_name}},\n    \"last_name\": {{$body.input.last_name}}\n  \n}"
+        template_engine: Kriti
+        version: 2
+    permissions:
+      - role: user
+      - role: anonymous
+    comment: register
+  - name: reset
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:8480/reset
+      request_transform:
+        body:
+          action: transform
+          template: "{\n  \n    \"id\": {{$body.input.id}},\n    \"password\": {{$body.input.password}}\n  \n}"
+        template_engine: Kriti
+        version: 2
+    permissions:
+      - role: user
+custom_types:
+  enums: []
+  input_objects: []
+  objects:
+    - name: registerOutput
+    - name: loginOutput
+    - name: resetOutput
+  scalars: []

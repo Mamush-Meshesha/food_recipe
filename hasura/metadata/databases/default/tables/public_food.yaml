@@ -1,0 +1,96 @@
+table:
+  name: food
+  schema: public
+insert_permissions:
+  - role: adminstrator
+    permission:
+      check: {}
+      columns:
+        - id
+        - recipe_id
+        - catagory
+        - description
+        - title
+        - url
+        - created_at
+    comment: ""
+  - role: user
+    permission:
+      check: {}
+      set:
+        recipe_id: x-hasura-User-Id
+      columns:
+        - id
+        - recipe_id
+        - catagory
+        - description
+        - title
+        - url
+        - created_at
+    comment: ""
+select_permissions:
+  - role: adminstrator
+    permission:
+      columns:
+        - id
+        - recipe_id
+        - catagory
+        - description
+        - title
+        - url
+        - created_at
+      filter: {}
+      allow_aggregations: true
+    comment: ""
+  - role: anonymous
+    permission:
+      columns:
+        - id
+        - recipe_id
+        - catagory
+        - description
+        - title
+        - url
+        - created_at
+      filter: {}
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - id
+        - recipe_id
+        - catagory
+        - description
+        - title
+        - url
+        - created_at
+      filter: {}
+      allow_aggregations: true
+    comment: ""
+update_permissions:
+  - role: adminstrator
+    permission:
+      columns:
+        - id
+        - recipe_id
+        - catagory
+        - description
+        - title
+        - url
+        - created_at
+      filter: {}
+      check: null
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - id
+        - recipe_id
+        - catagory
+        - description
+        - title
+        - url
+        - created_at
+      filter: {}
+      check: null
+    comment: ""

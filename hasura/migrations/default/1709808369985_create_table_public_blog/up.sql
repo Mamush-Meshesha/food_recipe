@@ -1,0 +1,1 @@
+CREATE TABLE "public"."blog" ("id" serial NOT NULL, "title" text, "description" text, "url" text NOT NULL, "ingredient" text NOT NULL, "instraction" text NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), "blog_id" integer NOT NULL, PRIMARY KEY ("id") );
