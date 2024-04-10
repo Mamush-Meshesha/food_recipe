@@ -2,6 +2,9 @@ table:
   name: recipe
   schema: public
 object_relationships:
+  - name: catagory
+    using:
+      foreign_key_constraint_on: catagory_id
   - name: user
     using:
       foreign_key_constraint_on: user_id
@@ -12,13 +15,6 @@ array_relationships:
         column: recipe_id
         table:
           name: bookmarks
-          schema: public
-  - name: catagories
-    using:
-      foreign_key_constraint_on:
-        column: recipe_id
-        table:
-          name: catagories
           schema: public
   - name: comments
     using:
@@ -83,8 +79,11 @@ computed_fields:
 insert_permissions:
   - role: user
     permission:
-      check: {}
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
       set:
+        created_by: x-hasura-User-Id
         user_id: x-hasura-User-Id
       columns:
         - catagory_id
@@ -96,7 +95,7 @@ insert_permissions:
         - user_id
     comment: ""
 select_permissions:
-  - role: adminstrator
+  - role: anonymous
     permission:
       columns:
         - catagory_id
@@ -108,19 +107,6 @@ select_permissions:
         - user_id
       computed_fields:
         - avarage_rating
-        - is_booked
-        - is_liked
-      filter: {}
-    comment: ""
-  - role: anonymous
-    permission:
-      columns:
-        - created_at
-        - title
-      computed_fields:
-        - avarage_rating
-        - is_booked
-        - is_liked
       filter: {}
     comment: ""
   - role: user
@@ -128,6 +114,7 @@ select_permissions:
       columns:
         - catagory_id
         - created_at
+        - created_by
         - description
         - id
         - preparetion_time
@@ -150,13 +137,19 @@ update_permissions:
         - description
         - title
         - created_at
-      filter: {}
-      check: null
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
       set:
         user_id: x-hasura-User-Id
     comment: ""
 delete_permissions:
   - role: user
     permission:
-      filter: {}
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
     comment: ""

@@ -11,7 +11,9 @@ object_relationships:
 insert_permissions:
   - role: user
     permission:
-      check: {}
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
       set:
         user_id: x-hasura-User-Id
       columns:
@@ -45,7 +47,9 @@ update_permissions:
         - comment
         - created_at
         - updated_at
-      filter: {}
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
       check: null
       set:
         user_id: x-hasura-User-Id
@@ -53,5 +57,20 @@ update_permissions:
 delete_permissions:
   - role: user
     permission:
-      filter: {}
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
     comment: ""
+event_triggers:
+  - name: comment_notify
+    definition:
+      delete:
+        columns: '*'
+      enable_manual: false
+      insert:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: http://host.docker.internal:8480/comment

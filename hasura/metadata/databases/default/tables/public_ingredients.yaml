@@ -8,26 +8,41 @@ object_relationships:
 insert_permissions:
   - role: user
     permission:
-      check: {}
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        created_by: x-hasura-User-Id
+        user_id: x-hasura-User-Id
       columns:
         - name
-        - id
         - recipe_id
     comment: ""
 select_permissions:
-  - role: adminstrator
+  - role: user
     permission:
       columns:
-        - name
         - id
-        - recipe_id
+        - name
       filter: {}
     comment: ""
+update_permissions:
   - role: user
     permission:
       columns:
         - name
-        - id
-        - recipe_id
-      filter: {}
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+      set:
+        created_by: x-hasura-User-Id
+        user_id: x-hasura-User-Id
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
     comment: ""

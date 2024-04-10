@@ -1,4 +1,17 @@
 actions:
+  - name: fileUpload
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:8480/upload
+      request_transform:
+        body:
+          action: transform
+          template: "{\n    \"images\": {{$body.input.images}}\n    \n}"
+        template_engine: Kriti
+        version: 2
+    permissions:
+      - role: user
+    comment: fileUpload
   - name: login
     definition:
       kind: synchronous
@@ -15,9 +28,21 @@ actions:
         version: 2
     permissions:
       - role: anonymous
-      - role: adminstrator
       - role: user
     comment: login
+  - name: profile
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:8480/profile
+      request_transform:
+        body:
+          action: transform
+          template: "{\n\n    \"name\": {{$body.input.image.name}},\n    \"type\": {{$body.input.image.type}},\n    \"base64str\": {{$body.input.image.base64str}}\n  \n}"
+        template_engine: Kriti
+        version: 2
+    permissions:
+      - role: user
+    comment: profile
   - name: register
     definition:
       kind: synchronous
@@ -46,9 +71,13 @@ actions:
       - role: user
 custom_types:
   enums: []
-  input_objects: []
+  input_objects:
+    - name: File
+    - name: ProfileImage
   objects:
     - name: registerOutput
     - name: loginOutput
     - name: resetOutput
+    - name: fileOutput
+    - name: profileOutput
   scalars: []

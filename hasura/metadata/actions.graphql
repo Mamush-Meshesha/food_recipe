@@ -1,8 +1,20 @@
 type Mutation {
+  fileUpload(
+    images: [File!]
+  ): fileOutput
+}
+
+type Mutation {
   login(
     email: String!
     password: String!
   ): loginOutput
+}
+
+type Mutation {
+  profile(
+    image: ProfileImage!
+  ): profileOutput
 }
 
 type Mutation {
@@ -21,6 +33,18 @@ type Mutation {
   ): resetOutput
 }
 
+input File {
+  name: String
+  type: String
+  base64str: String
+}
+
+input ProfileImage {
+  name: String
+  type: String
+  base64str: String
+}
+
 type registerOutput {
   success: String!
 }
@@ -31,5 +55,13 @@ type loginOutput {
 
 type resetOutput {
   success: String
+}
+
+type fileOutput {
+  image_urls: [String!]
+}
+
+type profileOutput {
+  image_url: String
 }
 
