@@ -46,7 +46,7 @@ func Login(c *gin.Context) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
 
-	claims["exp"] = time.Now().Add(time.Hour * 5).Unix()
+	claims["exp"] = time.Now().Add(time.Hour * 7).Unix()
 	claims["iat"] = time.Now().Unix()
 
 	hasuraClaims := map[string]interface{}{
